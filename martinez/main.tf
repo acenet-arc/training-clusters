@@ -17,8 +17,8 @@ module "openstack" {
   image        = "Rocky-9.3-x64-2023-11"
 
   instances = {
-    mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1, disk_size = 50}
-    login  = { type = "p2-3gb", tags = ["login", "public", "proxy"], count = 1, disk_size = 50 }
+    mgmt   = { type = "p4-7.5gb", tags = ["puppet", "mgmt", "nfs"], count = 1, disk_size = 50}
+    login  = { type = "p4-7.5gb", tags = ["login", "public", "proxy"], count = 1, disk_size = 50 }
     node   = { type = "c4-15gb", tags = ["node"], count = 2 }
   }
 
