@@ -8,7 +8,7 @@ variable "pool" {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?rev=14.0.0-beta.3"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.0.0-beta.3"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
   config_version = "14.0.0-beta.3"
 
