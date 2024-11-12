@@ -31,9 +31,9 @@ module "openstack" {
 
   volumes = {
     nfs = {
-      home     = { size = 100 }
-      project  = { size = 50 }
-      scratch  = { size = 50 }
+      home     = { size = 50 }
+      project  = { size = 450 }
+      scratch  = { size = 500 }
     }
   }
 
