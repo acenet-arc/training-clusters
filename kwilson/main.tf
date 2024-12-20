@@ -42,7 +42,6 @@ module "openstack" {
   # Shared password, randomly chosen if blank
   guest_passwd = ""
   
-  hieradata = file("./config.yml")
 }
 
 output "accounts" {
