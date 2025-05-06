@@ -8,18 +8,17 @@ variable "pool" {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.1.2"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.2.1"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "14.1.2"
+  config_version = "14.2.1"
 
   cluster_name = "basics"
   domain       = "ace-net.training"
-  image        = "Rocky-9.3-x64-2023-11"
+  image        = "Rocky-9.5-x64-2024-11"
 
   instances = {
     mgmt   = { type = "p8-15gb", tags = ["puppet", "mgmt", "nfs"], count = 1}
     login  = { type = "p8-15gb", tags = ["login", "public", "proxy"], count = 1}
-    node4c1g-   = { type = "c2-7.5gb", tags = ["node"], count = 0 }
     node2c-   = { type = "c2-7.5gb", tags = ["node"], count = 2 }
   }
 
