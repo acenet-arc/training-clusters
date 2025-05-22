@@ -17,8 +17,8 @@ module "openstack" {
   image        = "Rocky-9.5-x64-2024-11"
 
   instances = {
-    mgmt   = { type = "p8-12gb", tags = ["puppet", "mgmt", "nfs"], count = 1}
-    login  = { type = "p8-12gb", tags = ["login", "public", "proxy"], count = 1}
+    mgmt   = { type = "p8-15gb", tags = ["puppet", "mgmt", "nfs"], count = 1}
+    login  = { type = "p8-15gb", tags = ["login", "public", "proxy"], count = 1}
     node4c-   = { type = "c4-15gb", tags = ["node"], count = 1 }
   }
 
