@@ -36,7 +36,7 @@ module "openstack" {
     }
   }
 
-  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWHSMDMhlXIy+C7/Dw4b7dUgfZkE3AXnG8PDDkyY9Qm cgeroux@lunar"]
+  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWHSMDMhlXIy+C7/Dw4b7dUgfZkE3AXnG8PDDkyY9Qm cgeroux@lunar", "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINlyiuF0yzWv9D73SjSBmBafDbIS1JHefefg0ym8Je9A Sarah@sjnc-work"]
 
   nb_users = 0
   # Shared password, randomly chosen if blank
