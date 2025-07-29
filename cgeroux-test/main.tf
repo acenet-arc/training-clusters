@@ -14,12 +14,12 @@ module "openstack" {
 
   cluster_name = "cgeroux"
   domain       = "ace-net.training"
-  image        = "Rocky-9.5-x64-2024-11a"
+  image        = "Rocky-9.5-x64-2024-11"
 
   instances = {
-    mgmt   = { type = "p4-6gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
-    login  = { type = "p2-3gb", tags = ["login", "public", "proxy"], count = 1 }
-    node   = { type = "p2-3gb", tags = ["node"], count = 1 }
+    mgmt   = { type = "p4-7.5gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
+    login  = { type = "p2-3.75gb", tags = ["login", "public", "proxy"], count = 1 }
+    node   = { type = "p2-3.75gb", tags = ["node"], count = 1 }
   }
 
   # var.pool is managed by Slurm through Terraform REST API.
