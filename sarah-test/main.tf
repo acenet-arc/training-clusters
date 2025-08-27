@@ -11,6 +11,8 @@ module "openstack" {
   source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.3.0"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
   config_version = "14.3.0"
+  subnet_id = "f7412a24-e802-4a72-8e1f-f74bac4a0b5a"
+  os_ext_network = "Public-Network"
 
   cluster_name = "sarah"
   domain       = "ace-net.training"
