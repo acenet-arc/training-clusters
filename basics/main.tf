@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.4.0"
+  required_version = ">= 1.5.7"
 }
 
 variable "pool" {
@@ -8,17 +8,17 @@ variable "pool" {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.2.1"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.3.0"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "14.2.1"
+  config_version = "14.3.0"
 
   cluster_name = "basics"
   domain       = "ace-net.training"
   image        = "Rocky-9.5-x64-2024-11"
 
   instances = {
-    mgmt   = { type = "p8-15gb", tags = ["puppet", "mgmt", "nfs"], count = 1}
-    login  = { type = "p8-15gb", tags = ["login", "public", "proxy"], count = 1}
+    mgmt   = { type = "p8-15gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
+    login  = { type = "p8-15gb", tags = ["login", "public", "proxy"], count = 1 }
     node2c-   = { type = "c2-7.5gb", tags = ["node"], count = 1 }
   }
 
@@ -41,7 +41,6 @@ module "openstack" {
   nb_users = 100
   # Shared password, randomly chosen if blank
   guest_passwd = ""
-  
 }
 
 output "accounts" {
@@ -52,7 +51,7 @@ output "public_ip" {
   value = module.openstack.public_ip
 }
 
-## Uncomment to register your domain name with CloudFlare
+# Uncomment to register your domain name with CloudFlare
 module "dns" {
   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare"
   name             = module.openstack.cluster_name
