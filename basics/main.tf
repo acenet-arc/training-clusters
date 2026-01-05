@@ -4,13 +4,13 @@ terraform {
 
 variable "pool" {
   description = "Slurm pool of compute nodes"
-  default = []
+  default     = []
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=14.3.0"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=15.1.0"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "14.3.0"
+  config_version = "15.1.0"
 
   cluster_name = "basics"
   domain       = "ace-net.training"
@@ -30,9 +30,9 @@ module "openstack" {
 
   volumes = {
     nfs = {
-      home     = { size = 100 }
-      project  = { size = 50 }
-      scratch  = { size = 50 }
+      home    = { size = 100 }
+      project = { size = 50 }
+      scratch = { size = 50 }
     }
   }
 
@@ -41,8 +41,6 @@ module "openstack" {
   nb_users = 100
   # Shared password, randomly chosen if blank
   guest_passwd = ""
-  
-  subnet_id = "a7f9fef1-a43e-4502-83a9-e47c936b635d"
 }
 
 output "accounts" {
@@ -53,7 +51,7 @@ output "public_ip" {
   value = module.openstack.public_ip
 }
 
-# Uncomment to register your domain name with CloudFlare
+## Uncomment to register your domain name with CloudFlare
 module "dns" {
   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare"
   name             = module.openstack.cluster_name
