@@ -19,7 +19,7 @@ module "openstack" {
   instances = {
     mgmt   = { type = "p8-15gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
     login  = { type = "p8-15gb", tags = ["login", "public", "proxy"], count = 1 }
-    node2c-   = { type = "c2-7.5gb", tags = ["node"], count = 20 }
+    node2c-   = { type = "c2-7.5gb", tags = ["node"], count = 4}
   }
 
   # var.pool is managed by Slurm through Terraform REST API.
@@ -36,7 +36,7 @@ module "openstack" {
     }
   }
 
-  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWHSMDMhlXIy+C7/Dw4b7dUgfZkE3AXnG8PDDkyY9Qm cgeroux@lunar"]
+  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWHSMDMhlXIy+C7/Dw4b7dUgfZkE3AXnG8PDDkyY9Qm cgeroux@lunar","ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjz+roGXPS1iY+/dPbTAsQcGSYjv1XPvtJP/CoN3V38 svassili@Sergueis-Air"]
   
   nb_users = 100
   # Shared password, randomly chosen if blank
