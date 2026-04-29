@@ -1,0 +1,1 @@
+This document [Magic Castle Management](https://docs.google.com/document/d/1iwkcztw0dj8b6WPH3fTUEYWlIz7a6uZJ3WKKvvcJeMI/edit?tab=t.0) contains steps on how to use this repository with Terraform Cloud to create Magic Castles.
