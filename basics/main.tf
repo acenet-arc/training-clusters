@@ -8,18 +8,18 @@ variable "pool" {
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=15.1.0"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=15.4.0"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "15.1.0"
+  config_version = "15.4.0"
 
   cluster_name = "basics"
   domain       = "ace-net.training"
-  image        = "Rocky-9.5-x64-2024-11"
+  image        = "Rocky-9.7-x64-2026-03"
 
   instances = {
-    mgmt   = { type = "p8-15gb", tags = ["puppet", "mgmt", "nfs"], count = 1 }
-    login  = { type = "p8-15gb", tags = ["login", "public", "proxy"], count = 1 }
-    node2c-   = { type = "c2-7.5gb", tags = ["node"], count = 1 }
+    mgmt  = { type = "p8-15gb", tags = ["puppet", "mgmt", "nfs"], count = 1, disk_size = 50 }
+    login = { type = "p8-15gb", tags = ["login", "public", "proxy"], count = 1, disk_size = 50 }
+    node2c  = { type = "c2-7.5gb", tags = ["node"], count = 1 }
   }
 
   # var.pool is managed by Slurm through Terraform REST API.
@@ -37,11 +37,10 @@ module "openstack" {
   }
 
   public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWHSMDMhlXIy+C7/Dw4b7dUgfZkE3AXnG8PDDkyY9Qm cgeroux@lunar"]
-  
+
   nb_users = 100
   # Shared password, randomly chosen if blank
   guest_passwd = ""
-  
   subnet_id = "a7f9fef1-a43e-4502-83a9-e47c936b635d"
 }
 
@@ -53,7 +52,7 @@ output "public_ip" {
   value = module.openstack.public_ip
 }
 
-## Uncomment to register your domain name with CloudFlare
+# Uncomment to register your domain name with CloudFlare
 module "dns" {
   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare"
   name             = module.openstack.cluster_name
