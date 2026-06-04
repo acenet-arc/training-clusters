@@ -19,7 +19,7 @@ module "openstack" {
   instances = {
     mgmt   = { type = "p8-12gb", tags = ["puppet", "mgmt", "nfs"], count = 1}
     login  = { type = "p8-12gb", tags = ["login", "public", "proxy"], count = 1}
-    node8c-   = { type = "c8-30gb-186-avx2", tags = ["node"], count = 10 }
+    node8c-   = { type = "c8-30gb-186-avx2", tags = ["node"], count = 15 }
     node4c1g-   = { image="Rocky-8.10-x64-2024-06", type = "g1-8gb-c4-22gb", tags = ["node"], count = 1 }
   }
 
