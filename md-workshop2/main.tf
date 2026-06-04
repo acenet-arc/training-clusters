@@ -12,7 +12,7 @@ module "openstack" {
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
   config_version = "15.4.1"
 
-  cluster_name = "md-workshop"
+  cluster_name = "md-workshop-2"
   domain       = "ace-net.training"
   image        = "Rocky-9-x64-2025-08"
 
