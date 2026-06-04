@@ -1,0 +1,2 @@
+profile::cvmfs::client::repositories: ['cvmfs-config.computecanada.ca','soft.computecanada.ca','restricted.computecanada.ca']
+profile::base::packages: ["tcsh"]
