@@ -1,20 +1,32 @@
-fail2ban::custom_jails:
-  'ssh-route':
-    enabled: false
-    filter: 'sshd'
-    findtime: 3600
-    bantime: 86400
-    maxretry: 20
-    action: 'route'
-    logpath: '%(sshd_log)s'
-  'ssh-ban-root':
-    enabled: true
-    findtime: 3600
-    bantime: 86400
-    maxretry: 0
-    action: 'route'
-    logpath: '%(sshd_log)s'
-    journalmatch: '_SYSTEMD_UNIT=sshd.service + _COMM=sshd'
-    filter_maxlines: 10
-    filter_includes: 'before = common.conf'
-    filter_failregex: '^%(__prefix_line)spam_unix\(sshd:auth\):\s+authentication failure;\s*logname=\S*\s*uid=\d*\s*euid=\d*\s*tty=\S*\s*ruser=\S*\s*rhost=<HOST>\S*\s*user=(root|admin)\s.*$'
+fail2ban::jail { 'ssh-route':
+  jail_name => 'ssh-route',
+  jail_content => {
+    enabled => 'true',
+  },
+}
+
+#fail2ban::custom_jails:
+#  'ssh-route':
+#    enabled: true
+#    filter: 'sshd'
+#    findtime: 3600
+#    bantime: 86400
+#    maxretry: 20
+#    action: 'route'
+#    logpath: '%(sshd_log)s'
+#  'ssh-ignore':
+#    enabled: true
+#    filter: ': Accepted'
+#    action: 'echo <ip>/var/log/test_custom_filter.txt'
+#    logpath: '%(sshd_log)s'
+#  'ssh-ban-root':
+#    enabled: true
+#    findtime: 3600
+#    bantime: 86400
+#    maxretry: 0
+#    action: 'route'
+#    logpath: '%(sshd_log)s'
+#    journalmatch: '_SYSTEMD_UNIT=sshd.service + _COMM=sshd'
+#    filter_maxlines: 10
+#    filter_includes: 'before = common.conf'
+#    filter_failregex: '^%(__prefix_line)spam_unix\(sshd:auth\):\s+authentication failure;\s*logname=\S*\s*uid=\d*\s*euid=\d*\s*tty=\S*\s*ruser=\S*\s*rhost=<HOST>\S*\s*user=(root|admin)\s.*$'
