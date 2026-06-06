@@ -1,9 +1,6 @@
-fail2ban::jail { 'ssh-route':
-  jail_name => 'ssh-route',
-  jail_content => {
-    enabled => 'true',
-  },
-}
+fail2ban::jail:
+  ssh-route:
+    enabled: true
 
 #fail2ban::custom_jails:
 #  'ssh-route':
