@@ -1,7 +1,7 @@
 fail2ban::custom_jails:
   'ssh-ignore-hiera':
     enabled: false
-
+    logpath: '%(sshd_log)s'
 fail2ban::custom_filters:
   'ssh-ignore-hiera':
     failregex: '.*Accepted keyboard-interactive/pam for .* from <HOST>'
