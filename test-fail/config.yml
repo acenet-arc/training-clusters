@@ -2,12 +2,10 @@ fail2ban::custom_jails:
   'ssh-ignore-hiera':
     enabled: false
     logpath: '%(sshd_log)s'
-    ignoreip: 123.456.789.123
-    'thing2': 'stuff2'
+    ignoreip: [123.456.789.123]
 fail2ban::custom_filters:
   'ssh-ignore-hiera':
-    'testing':
-      'thing1': 'stuff'
+    failregex: 'testing'
 #fail2ban::custom_jails:
 #  'ssh-route':
 #    enabled: true
