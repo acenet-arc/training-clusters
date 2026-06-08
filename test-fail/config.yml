@@ -4,7 +4,10 @@ fail2ban::custom_jails:
     logpath: '%(sshd_log)s'
 fail2ban::custom_filters:
   'ssh-ignore-hiera':
+    'DEfAULT':
+      'logtype': 'short'
     failregex: ".*Accepted keyboard-interactive/pam for .* from <HOST>"
+    journalmatch: 'does journalmatch work?'
     logpath: '%(sshd_log)s'
 #fail2ban::custom_jails:
 #  'ssh-route':
