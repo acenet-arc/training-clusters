@@ -1,15 +1,13 @@
 fail2ban::custom_jails:
-  default_params:
-    ignoreip: 123.456.789.123
   'ssh-ignore-hiera':
     enabled: false
     logpath: '%(sshd_log)s'
+    ignoreip: 123.456.789.123
+    'thing2': 'stuff2'
 fail2ban::custom_filters:
   'ssh-ignore-hiera':
-    Definition:
-      failregex: ".*Accepted keyboard-interactive/pam for .* from <HOST>"
-    journalmatch: 'does journalmatch work?'
-    logpath: '%(sshd_log)s'
+    'testing':
+      'thing1': 'stuff'
 #fail2ban::custom_jails:
 #  'ssh-route':
 #    enabled: true
