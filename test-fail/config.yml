@@ -1,6 +1,10 @@
-fail2ban::jail:
-  ssh-route:
+fail2ban::custom_jail:
+  'ssh-ignore-hiera':
     enabled: false
+
+fail2ban::custom_filter:
+  'ssh-ignore-hiera':
+    failregex: '.*Accepted keyboard-interactive/pam for .* from <HOST>'
 
 #fail2ban::custom_jails:
 #  'ssh-route':
