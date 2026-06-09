@@ -7,7 +7,16 @@ fail2ban::custom_filters:
   'ssh-ignore-hiera':
     failregex: 'testing'
 fail2ban::jails:
-  ['test-jail',"enabled:false"]
+  ['test-jail',"enabled: false"]
+  
+fail2ban::action { 'Set AbuseIPDB API key':
+  action_name => 'abuseipdb',
+  action_content => {
+    'Init' => {
+      'abuseipdb_apikey' => 'my-very-secret-api-key',
+    },
+  },
+}
 
 #fail2ban::custom_jails:
 #  'ssh-route':
