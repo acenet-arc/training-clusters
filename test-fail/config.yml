@@ -1,22 +1,22 @@
-fail2ban::custom_jails:
-  'ssh-ignore-hiera':
-    enabled: false
-    logpath: '%(sshd_log)s'
-    ignoreip: [123.123.123.123]
-fail2ban::custom_filters:
-  'ssh-ignore-hiera':
-    failregex: 'testing'
-fail2ban::jails:
-  ['test-jail',"enabled: false"]
-  
-fail2ban::action { 'Set AbuseIPDB API key':
-  action_name => 'abuseipdb',
-  action_content => {
-    'Init' => {
-      'abuseipdb_apikey' => 'my-very-secret-api-key',
-    },
-  },
-}
+#fail2ban::custom_jails:
+#  'ssh-ignore-hiera':
+#    enabled: false
+#    logpath: '%(sshd_log)s'
+#    ignoreip: [123.123.123.123]
+#fail2ban::custom_filters:
+#  'ssh-ignore-hiera':
+#    failregex: 'testing'
+#fail2ban::jails:
+#  ['test-jail',"enabled: false"]
+#  
+#fail2ban::action { 'Set AbuseIPDB API key':
+#  action_name => 'abuseipdb',
+#  action_content => {
+#    'Init' => {
+#      'abuseipdb_apikey' => 'my-very-secret-api-key',
+#    },
+#  },
+#}
 
 #fail2ban::custom_jails:
 #  'ssh-route':
@@ -43,3 +43,31 @@ fail2ban::action { 'Set AbuseIPDB API key':
 #    filter_maxlines: 10
 #    filter_includes: 'before = common.conf'
 #    filter_failregex: '^%(__prefix_line)spam_unix\(sshd:auth\):\s+authentication failure;\s*logname=\S*\s*uid=\d*\s*euid=\d*\s*tty=\S*\s*ruser=\S*\s*rhost=<HOST>\S*\s*user=(root|admin)\s.*$'
+
+#NOTE: below are the contents of the working testing fail2ban config for 
+#adding IPs to a list of whitelisted IPs
+#$ cat /etc/fail2ban/filter.d/ssh-ignore.local 
+#[INCLUDES]
+#before = common.conf
+# 
+#[DEFAULT]
+# 
+#[Definition]
+#failregex = .*Accepted keyboard-interactive/pam for .* from <HOST>
+# 
+#ignoreregex =
+#
+#$ cat /etc/fail2ban/jail.d/ssh-ignore.local 
+#[ssh-ignore]
+#maxretry=0
+#bantime=10
+#enabled = true
+#logpath = /var/log/secure
+#filter = ssh-ignore
+#action = ssh-ignore
+#
+#$ cat /etc/fail2ban/action.d/ssh-ignore.local 
+#[INCLUDES]
+#
+#[Definition]
+#actionban = fail2ban-client set ssh-route addignoreip <ip>
