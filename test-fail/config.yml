@@ -2,3 +2,4 @@ jupyterhub::kernel::venv::packages:
   - numpy
   - pandas
   - matplotlib
+  - plotly
