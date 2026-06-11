@@ -1,14 +1,2 @@
-fail2ban::jail { 'Filter attempt to wp-login':
-  jail_name    => 'nginx-wp-login',
-  jail_content => {
-    'nginx-wp-login' => {
-      jail_failregex => '<HOST>.*] "POST /wp-login.php',
-      port           => 'http,https',
-      logpath        => '/var/log/nginx/access.log',
-      maxretry       => 3,
-      findtime       => 120,
-      bantime        => 1200,
-      ignoreip       => ['127.0.0.1', '192.168.1.1/24'],
-    },
-  },
-}
+jupyterhub::kernel::venv::packages:
+  - numpy
