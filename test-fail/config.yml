@@ -1,0 +1,20 @@
+profile::fail2ban::jails:
+  ssh-ignore:
+    maxretry: 0
+    bantime: 10
+    enabled: true
+    logpath: /var/log/secure
+    filter: filter-ssh-ignore
+    action: action-ssh-ignore
+
+profile::fail2ban::filters:
+  filter-ssh-ignore:
+    INCLUDES:
+      before: common.conf
+    Definition:
+      failregex: ".*Accepted keyboard-interactive/pam for .* from <HOST>"
+
+profile::fail2ban::actions:
+  action-ssh-ignore:
+    Definition:
+      actionban: "fail2ban-client set ssh-route addignoreip <ip>"
