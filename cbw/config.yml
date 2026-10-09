@@ -9,6 +9,6 @@ jupyterhub::kernel::venv::packages:
 #jupyterhub::kernel::venv::python: "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.11.5/bin/python"
 #profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc', 'cuda/11.4']
 
-#profile::accounts::skel_archives:
-#    - filename: main-nbody.zip
-#      source: https://github.com/calculquebec/cq-formation-nbody/archive/refs/heads/main.zip
+profile::accounts::skel_archives:
+    - filename: module2_data.zip
+      source: https://github.com/bioinformaticsdotca/MLE_Hal-2610/raw/refs/heads/main/data/module2_data.zip
