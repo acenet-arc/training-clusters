@@ -5,10 +5,8 @@ jupyterhub::kernel::venv::packages:
   - scipy==1.17.1
   - tensorflow==2.19.1
   - keras==3.15.1
+  - scikit_learn==1.8.0
+  - joblib==1.6.0
 
 #jupyterhub::kernel::venv::python: "/cvmfs/soft.computecanada.ca/easybuild/software/2020/avx2/Core/python/3.11.5/bin/python"
 #profile::cvmfs::client::lmod_default_modules: ['StdEnv/2020', 'gcc', 'cuda/11.4']
-
-profile::accounts::skel_archives:
-    - filename: module2_data.zip
-      source: https://github.com/bioinformaticsdotca/MLE_Hal-2610/raw/refs/heads/main/data/module2_data.zip
