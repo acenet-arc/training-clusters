@@ -4,23 +4,23 @@ terraform {
 
 variable "pool" {
   description = "Slurm pool of compute nodes"
-  default = []
+  default     = []
 }
 
 module "openstack" {
-  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=15.4.1"
+  source         = "git::https://github.com/ComputeCanada/magic_castle.git//openstack?ref=16.1.2"
   config_git_url = "https://github.com/ComputeCanada/puppet-magic_castle.git"
-  config_version = "15.4.1"
+  config_version = "16.1.2"
 
   cluster_name = "md-workshop"
   domain       = "ace-net.training"
-  image        = "Rocky-9.1-x64-2023-02"
+  image        = "AlmaLinux-9-x64-2025-08"
 
   instances = {
-    mgmt   = { type = "p8-12gb", tags = ["puppet", "mgmt", "nfs"], count = 1}
-    login  = { type = "p8-12gb", tags = ["login", "public", "proxy"], count = 1}
-    node8c-   = { type = "c8-30gb-186-avx2", tags = ["node"], count = 15 }
-    node4c1g-   = { image="Rocky-8.10-x64-2024-06", type = "g1-8gb-c4-22gb", tags = ["node"], count = 1 }
+    mgmt  = { type = "p8-15gb", tags = ["puppet", "mgmt", "nfs"], count = 1, disk_size = 50  }
+    login = { type = "p8-15gb", tags = ["login", "public", "proxy"], count = 1, disk_size = 50  }
+    node8c-  = { type = "c2-7.5gb", tags = ["node"], count = 1 }
+    node4c1g-   = { type = "g1-12gb-c3-35gb-125", tags = ["node"], count = 1 }
   }
 
   # var.pool is managed by Slurm through Terraform REST API.
@@ -31,19 +31,20 @@ module "openstack" {
 
   volumes = {
     nfs = {
-      home     = { size = 100 }
-      project  = { size = 50 }
-      scratch  = { size = 50 }
+      home    = { size = 100 }
+      project = { size = 50 }
+      scratch = { size = 50 }
     }
   }
 
-  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWHSMDMhlXIy+C7/Dw4b7dUgfZkE3AXnG8PDDkyY9Qm cgeroux@lunar","ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKNJSw9+yFmtwRpJzoagrQEzobMkMEQxGLqs7edjNJZS 2021-07-28 ostueker@ACE-Helium","ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIOCI9Gh8K6m1V+qpSoyp9tBmMCvtk0uY4rUD+6GaWgAX rdickson@BRTJTQ2","ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBjz+roGXPS1iY+/dPbTAsQcGSYjv1XPvtJP/CoN3V38 svassili@Sergueis-Air", "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIBblyJ+6JynjS7kxzawodNvRrOTGVGj7266zcFJuq01N 1password_ed25519"]
+  public_keys = ["ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILWHSMDMhlXIy+C7/Dw4b7dUgfZkE3AXnG8PDDkyY9Qm cgeroux@lunar"]
 
   nb_users = 100
   # Shared password, randomly chosen if blank
   guest_passwd = ""
   
-  hieradata = file("./config.yml")
+  #NOTE: don't need extra config this time around
+  #hieradata = file("./config.yml")
 }
 
 output "accounts" {
@@ -54,12 +55,12 @@ output "public_ip" {
   value = module.openstack.public_ip
 }
 
-## Uncomment to register your domain name with CloudFlare
+# Uncomment to register your domain name with CloudFlare
 module "dns" {
-   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=15.4.1"
-   name             = module.openstack.cluster_name
-   domain           = module.openstack.domain
-   public_instances = module.openstack.public_instances
+  source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/cloudflare?ref=16.1.2"
+  name             = module.openstack.cluster_name
+  domain           = module.openstack.domain
+  public_instances = module.openstack.public_instances
 }
 
 ## Uncomment to register your domain name with Google Cloud
@@ -67,6 +68,14 @@ module "dns" {
 #   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/gcloud"
 #   project          = "your-project-id"
 #   zone_name        = "you-zone-name"
+#   name             = module.openstack.cluster_name
+#   domain           = module.openstack.domain
+#   public_instances = module.openstack.public_instances
+# }
+
+## Uncomment to register your domain name with OpenStack Designate
+# module "dns" {
+#   source           = "git::https://github.com/ComputeCanada/magic_castle.git//dns/designate"
 #   name             = module.openstack.cluster_name
 #   domain           = module.openstack.domain
 #   public_instances = module.openstack.public_instances
